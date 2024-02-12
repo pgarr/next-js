@@ -1,6 +1,12 @@
 import { getProductsList } from "@/api/products";
 import { ProductList } from "@/components/ui/organisms/ProductList";
 
+export const metadata = {
+	title: "Products",
+	description: "List of products available in our store",
+	keywords: ["products", "store", "shop"],
+};
+
 export default async function Products() {
 	const products = await getProductsList();
 
