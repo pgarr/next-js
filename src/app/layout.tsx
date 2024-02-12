@@ -6,7 +6,7 @@ import { ActiveLink } from "@/components/ui/atoms/ActiveLink";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-	title: "Products",
+	title: "Shop",
 };
 
 const navLinkProps = {
