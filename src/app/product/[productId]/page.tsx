@@ -1,7 +1,12 @@
+import { type Metadata } from "next";
 import { getProduct } from "@/api/products";
 import { ProductImage } from "@/components/ui/atoms/ProductImage";
 
-export async function generateMetadata({ params }: { params: { productId: string } }) {
+export async function generateMetadata({
+	params,
+}: {
+	params: { productId: string };
+}): Promise<Metadata> {
 	const product = await getProduct(params.productId);
 
 	return {
