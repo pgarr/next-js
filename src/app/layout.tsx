@@ -36,7 +36,7 @@ export default function RootLayout({
 						</li>
 						<li>
 							<ActiveLink href="/products" {...navLinkProps}>
-								Products
+								All
 							</ActiveLink>
 						</li>
 					</ul>
