@@ -22,13 +22,15 @@ export default async function ProductPage({ params }: { params: { productId: str
 
 	return (
 		<main className="min-h-screen p-24">
-			<h1 className="my-3 text-4xl font-bold">{name}</h1>
-			<span>{category}</span>
-			<div className="flex flex-row gap-5">
+			<h1 className="mt-3 text-4xl font-bold">{name}</h1>
+			<div className="mt-10 flex flex-row gap-5">
 				<ProductImage src={src} alt={alt} />
-				<span className="text-xl font-bold">{price}$</span>
+				<div className="flex flex-col gap-4 p-6">
+					<span className="text-xl font-bold">{price}$</span>
+					<span>{category}</span>
+					<article>{product.description}</article>
+				</div>
 			</div>
-			<article>{product.description}</article>
 		</main>
 	);
 }

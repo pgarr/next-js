@@ -1,7 +1,11 @@
 /** @type {import('next').NextConfig} */
+
+import mdx from "@next/mdx";
+
 const nextConfig = {
 	experimental: {
 		typedRoutes: true,
+		mdxRs: true,
 	},
 	redirects: async () => {
 		return [
@@ -14,4 +18,5 @@ const nextConfig = {
 	},
 };
 
-export default nextConfig;
+const withMDX = mdx();
+export default withMDX(nextConfig);
