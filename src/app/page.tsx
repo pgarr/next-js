@@ -7,7 +7,7 @@ import { ProductList } from "@/components/ui/organisms/ProductList";
 
 export default async function Home() {
 	const collections = await getCollections();
-	const products = await getProductsListPaginated(1, 3);
+	const products = await getProductsListPaginated(1, 4);
 
 	return (
 		<>
