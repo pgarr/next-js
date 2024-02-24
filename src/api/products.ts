@@ -1,40 +1,36 @@
-import { type ProductResponse } from "@/api/types";
-import { type Product } from "@/types";
-
-const mapProductResponseToProduct = (productResponse: ProductResponse): Product => ({
-	id: productResponse.id,
-	image: { src: productResponse.image, alt: productResponse.title },
-	name: productResponse.title,
-	category: productResponse.category,
-	price: productResponse.price,
-	description: productResponse.description,
-});
-
-export const getProductsList = async (): Promise<Product[]> => {
-	const response = await fetch("https://naszsklep-api.vercel.app/api/products?take=20");
-	const productsResponse = JSON.parse(await response.text()) as ProductResponse[];
-	return productsResponse.map(mapProductResponseToProduct);
-};
+import {
+	ProductGetByIdDocument,
+	ProductsGetListBySearchDocument,
+	ProductsGetListDocument,
+} from "@/gql/graphql";
+import { executeGraphql } from "@/api/executeGraphql";
 
 export const getProductsListCount = async (): Promise<number> => {
-	const response = await fetch("https://naszsklep-api.vercel.app/api/products?take=9999999");
-	const productsResponse = JSON.parse(await response.text()) as ProductResponse[];
-	return productsResponse.length;
+	return 14;
 };
 
-export const getProductsListPaginated = async (
-	page: number,
-	take: number = 20,
-): Promise<Product[]> => {
-	const response = await fetch(
-		`https://naszsklep-api.vercel.app/api/products?take=${take}&offset=${(page - 1) * take}`,
-	);
-	const productsResponse = JSON.parse(await response.text()) as ProductResponse[];
-	return productsResponse.map(mapProductResponseToProduct);
+export const getProductsListPaginated = async (page: number, pageSize: number) => {
+	const graphqlResponse = await executeGraphql(ProductsGetListDocument, {
+		take: pageSize,
+		skip: pageSize * (page - 1),
+	});
+	return graphqlResponse.products.data || [];
 };
 
 export const getProduct = async (id: string) => {
-	const response = await fetch(`https://naszsklep-api.vercel.app/api/products/${id}`);
-	const productResponse = JSON.parse(await response.text()) as ProductResponse;
-	return mapProductResponseToProduct(productResponse);
+	const graphqlResponse = await executeGraphql(ProductGetByIdDocument, { id });
+	return graphqlResponse.product;
+};
+
+export const getProductsSuggested = async () => {
+	const graphqlResponse = await executeGraphql(ProductsGetListDocument, {
+		take: 4,
+		skip: 0,
+	});
+	return graphqlResponse.products.data || [];
+};
+
+export const getProductsBySearch = async (search: string) => {
+	const graphqlResponse = await executeGraphql(ProductsGetListBySearchDocument, { search });
+	return graphqlResponse.products.data || [];
 };

@@ -1,0 +1,7 @@
+query ProductsGetList($take: Int!, $skip: Int!) {
+	products(take: $take, skip: $skip) {
+		data {
+			...ProductItem
+		}
+	}
+}
