@@ -8,10 +8,12 @@ export async function generateMetadata({
 	params: { collectionName: string };
 }): Promise<Metadata> {
 	const collection = await getCollectionWithProducts(params.collectionName);
+	const name = collection?.name || params.collectionName;
+
 	return {
-		title: `${collection?.name || params.collectionName}`,
-		description: `List of products available in our store in ${params.collectionName} category`,
-		keywords: ["products", "store", "shop", params.collectionName],
+		title: name,
+		description: `List of products available in our store in ${name} category`,
+		keywords: ["products", "store", "shop", name],
 	};
 }
 

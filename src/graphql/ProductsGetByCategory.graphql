@@ -1,7 +1,0 @@
-query ProductsGetByCategory($slug: String!) {
-	category(slug: $slug) {
-		products {
-			...ProductItem
-		}
-	}
-}

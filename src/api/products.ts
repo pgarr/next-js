@@ -1,6 +1,5 @@
 import {
 	ProductGetByIdDocument,
-	ProductsGetByCategoryDocument,
 	ProductsGetListBySearchDocument,
 	ProductsGetListDocument,
 } from "@/gql/graphql";
@@ -21,13 +20,6 @@ export const getProductsListPaginated = async (page: number, pageSize: number) =
 export const getProduct = async (id: string) => {
 	const graphqlResponse = await executeGraphql(ProductGetByIdDocument, { id });
 	return graphqlResponse.product;
-};
-
-export const getProductsByCategory = async (categorySlug: string) => {
-	const graphqlResponse = await executeGraphql(ProductsGetByCategoryDocument, {
-		slug: categorySlug,
-	});
-	return graphqlResponse.category?.products || [];
 };
 
 export const getProductsSuggested = async () => {
