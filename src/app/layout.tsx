@@ -31,7 +31,7 @@ export default async function RootLayout({
 						})),
 					]}
 					navLinkClassName="text-blue-600 hover:text-blue-300"
-					navLinkActiveClassName="underline"
+					navLinkActiveClassName="border-b-2 border-blue-600"
 					navbarClassName="flex flex-row justify-between px-5 py-3 bg-gray-300 "
 				>
 					<SearchBar />

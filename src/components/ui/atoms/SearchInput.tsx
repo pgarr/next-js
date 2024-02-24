@@ -8,14 +8,14 @@ export const SearchInput = () => {
 	const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 	const router = useRouter();
 
-	const redirectToSearch = () => {
-		router.push(`/search?query=${search}`);
+	const redirectToSearch = (val: string) => {
+		router.push(`/search?query=${val}`);
 	};
 
 	return (
 		<form
 			action={() => {
-				redirectToSearch();
+				redirectToSearch(search);
 			}}
 		>
 			<input
@@ -30,7 +30,7 @@ export const SearchInput = () => {
 						clearTimeout(timeoutRef.current);
 					}
 					if (e.target.value.length > 2) {
-						timeoutRef.current = setTimeout(redirectToSearch, 500);
+						timeoutRef.current = setTimeout(redirectToSearch, 500, e.target.value);
 					}
 				}}
 			/>

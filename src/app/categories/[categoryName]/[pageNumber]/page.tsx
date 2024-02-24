@@ -28,6 +28,7 @@ export default async function CategoryProducts({
 
 	return (
 		<main className="min-h-screen p-24">
+			<h1 className="text-4xl font-bold">{category?.name}</h1>
 			<PaginationNavigation
 				totalPages={pages}
 				currentPage={Number.parseInt(params.pageNumber)}
