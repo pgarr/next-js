@@ -1,5 +1,6 @@
 import { getProductsListCount } from "@/api/products";
 import { PaginationNavigation } from "@/components/ui/molecules/PaginationNavigation";
+import { getPageSize } from "@/utils";
 
 export const metadata = {
 	title: "Products",
@@ -8,9 +9,7 @@ export const metadata = {
 };
 
 export async function generateStaticParams() {
-	const productsCount = await getProductsListCount();
-	const pages = Math.ceil(productsCount / 20);
-	return Array.from({ length: pages }).map((_, i) => ({ pageNumber: (i + 1).toString() }));
+	return Array.from({ length: 2 }).map((_, i) => ({ pageNumber: (i + 1).toString() }));
 }
 
 export default async function ProductsLayout({
@@ -21,7 +20,7 @@ export default async function ProductsLayout({
 	params: { pageNumber: string };
 }>) {
 	const productsCount = await getProductsListCount();
-	const pages = Math.ceil(productsCount / 20);
+	const pages = Math.ceil(productsCount / getPageSize());
 
 	return (
 		<main className="min-h-screen p-24">

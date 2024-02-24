@@ -1,22 +1,13 @@
 import type { Metadata, Route } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { ActiveLink } from "@/components/ui/atoms/ActiveLink";
+import { NavigationBar } from "@/components/ui/molecules/NavigationBar";
+import { SearchBar } from "@/components/ui/molecules/SearchBar";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
 	title: "Shop",
-};
-
-const navLinkProps = {
-	className: "text-blue-600 hover:text-blue-300",
-	activeClassName: "underline",
-};
-
-const footerLinkProps = {
-	className: "text-gray-600 hover:text-gray-300 text-xs",
-	activeClassName: "underline",
 };
 
 export default function RootLayout({
@@ -27,30 +18,25 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body className={inter.className}>
-				<nav>
-					<ul className="mt-2 flex justify-center gap-5 text-xl">
-						<li>
-							<ActiveLink exact href="/" {...navLinkProps}>
-								Home
-							</ActiveLink>
-						</li>
-						<li>
-							<ActiveLink href="/products" {...navLinkProps}>
-								All
-							</ActiveLink>
-						</li>
-					</ul>
-				</nav>
+				<NavigationBar
+					links={[
+						{ href: "/" as Route, label: "Home", exact: true },
+						{ href: "/products" as Route, label: "All" },
+						{ href: "/categories", label: "Categories" },
+						{ href: "/collections", label: "Collections" },
+					]}
+					navLinkClassName="text-blue-600 hover:text-blue-300"
+					navLinkActiveClassName="underline"
+					navbarClassName="flex flex-row justify-between px-5 py-3 bg-gray-300 "
+				>
+					<SearchBar />
+				</NavigationBar>
 				{children}
-				<nav>
-					<ul className="mt-2 flex justify-center gap-5 text-xl">
-						<li>
-							<ActiveLink exact href={"/static/regulamin" as Route} {...footerLinkProps}>
-								Regulamin
-							</ActiveLink>
-						</li>
-					</ul>
-				</nav>
+				<NavigationBar
+					links={[{ href: "/static/regulamin" as Route, label: "Regulamin", exact: true }]}
+					navLinkClassName="text-gray-600 hover:text-gray-300 text-xs"
+					navLinkActiveClassName="underline"
+				/>
 			</body>
 		</html>
 	);
