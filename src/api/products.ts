@@ -1,19 +1,16 @@
 import {
 	ProductGetByIdDocument,
 	ProductsGetByCategoryDocument,
-	ProductsGetByCollectionDocument,
 	ProductsGetListBySearchDocument,
 	ProductsGetListDocument,
 } from "@/gql/graphql";
 import { executeGraphql } from "@/api/executeGraphql";
-import { getPageSize } from "@/utils";
 
 export const getProductsListCount = async (): Promise<number> => {
 	return 14;
 };
 
-export const getProductsListPaginated = async (page: number) => {
-	const pageSize = getPageSize();
+export const getProductsListPaginated = async (page: number, pageSize: number) => {
 	const graphqlResponse = await executeGraphql(ProductsGetListDocument, {
 		take: pageSize,
 		skip: pageSize * (page - 1),
@@ -31,13 +28,6 @@ export const getProductsByCategory = async (categorySlug: string) => {
 		slug: categorySlug,
 	});
 	return graphqlResponse.category?.products || [];
-};
-
-export const getProductsByCollection = async (collectionSlug: string) => {
-	const graphqlResponse = await executeGraphql(ProductsGetByCollectionDocument, {
-		slug: collectionSlug,
-	});
-	return graphqlResponse.collection?.products || [];
 };
 
 export const getProductsSuggested = async () => {

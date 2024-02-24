@@ -25,7 +25,6 @@ export default async function RootLayout({
 					links={[
 						{ href: "/" as Route, label: "Home", exact: true },
 						{ href: "/products" as Route, label: "All" },
-						{ href: "/collections", label: "Collections" },
 						...categories.map((category) => ({
 							href: `/categories/${category.slug}/1` as Route,
 							label: category.name,
