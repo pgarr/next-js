@@ -1,3 +1,3 @@
 export const SearchFallback = () => {
-	return <input type="search" placeholder="Search" />;
+	return <input type="search" placeholder="Search" aria-busy="true" />;
 };
