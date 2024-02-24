@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { NavigationBar } from "@/components/ui/molecules/NavigationBar";
 import { SearchBar } from "@/components/ui/molecules/SearchBar";
+import { getCategories } from "@/api/categories";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -10,11 +11,13 @@ export const metadata: Metadata = {
 	title: "Shop",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
 	children,
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
+	const categories = await getCategories();
+
 	return (
 		<html lang="en">
 			<body className={inter.className}>
@@ -22,8 +25,11 @@ export default function RootLayout({
 					links={[
 						{ href: "/" as Route, label: "Home", exact: true },
 						{ href: "/products" as Route, label: "All" },
-						{ href: "/categories", label: "Categories" },
 						{ href: "/collections", label: "Collections" },
+						...categories.map((category) => ({
+							href: `/categories/${category.slug}/1` as Route,
+							label: category.name,
+						})),
 					]}
 					navLinkClassName="text-blue-600 hover:text-blue-300"
 					navLinkActiveClassName="underline"
