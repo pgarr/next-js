@@ -18,9 +18,10 @@ export const SearchInput = () => {
 				redirectToSearch(search);
 			}}
 		>
+			<label className="sr-only">Szukaj</label>
 			<input
 				name="search"
-				className="rounded-md border-2 border-gray-300 p-2"
+				className="w-full rounded-md border-0 bg-slate-50 py-2 pl-11 pr-4 text-sm text-slate-800 ring-1 ring-inset ring-gray-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-blue-400"
 				type="search"
 				placeholder="Search"
 				value={search}

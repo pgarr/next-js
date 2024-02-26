@@ -2,8 +2,7 @@ import type { Metadata, Route } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { NavigationBar } from "@/components/ui/molecules/NavigationBar";
-import { SearchBar } from "@/components/ui/molecules/SearchBar";
-import { getCategories } from "@/api/categories";
+import { NavigationHeader } from "@/components/ui/organisms/NavigationHeader";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,26 +15,10 @@ export default async function RootLayout({
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
-	const categories = await getCategories();
-
 	return (
 		<html lang="en">
 			<body className={inter.className}>
-				<NavigationBar
-					links={[
-						{ href: "/" as Route, label: "Home", exact: true },
-						{ href: "/products" as Route, label: "All" },
-						...categories.map((category) => ({
-							href: `/categories/${category.slug}/1` as Route,
-							label: category.name,
-						})),
-					]}
-					navLinkClassName="text-blue-600 hover:text-blue-300"
-					navLinkActiveClassName="border-b-2 border-blue-600"
-					navbarClassName="flex flex-row justify-between px-5 py-3 bg-gray-300 "
-				>
-					<SearchBar />
-				</NavigationBar>
+				<NavigationHeader />
 				{children}
 				<NavigationBar
 					links={[{ href: "/static/regulamin" as Route, label: "Regulamin", exact: true }]}

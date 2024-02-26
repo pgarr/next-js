@@ -1,9 +1,12 @@
 import { type Metadata } from "next";
 import { notFound } from "next/navigation";
+import { cookies } from "next/headers";
 import { getProduct } from "@/api/products";
 import { ProductImage } from "@/components/ui/atoms/ProductImage";
 import { SuggestedProducts } from "@/components/ui/templates/SuggestedProducts";
 import { Loading } from "@/components/ui/atoms/Loading";
+import { addProductToCart, createCart, getCart } from "@/api/cart";
+import { AddProductToCartButton } from "@/components/ui/atoms/AddProductToCartButton";
 
 export async function generateMetadata({
 	params,
@@ -22,6 +25,8 @@ export async function generateMetadata({
 }
 
 export default async function ProductPage({ params }: { params: { productId: string } }) {
+	const quantity = 1;
+
 	const product = await getProduct(params.productId);
 
 	if (!product) {
@@ -30,7 +35,17 @@ export default async function ProductPage({ params }: { params: { productId: str
 
 	async function addProductToCartAction() {
 		"use server";
-		console.log(params.productId);
+		if (!product) return;
+		const cartId = cookies().get("cartId")?.value;
+		if (cartId) {
+			const cart = await getCart(cartId);
+			if (cart) {
+				await addProductToCart(cart.id, product.id, quantity);
+			}
+		} else {
+			const newCart = await createCart(product.id, quantity);
+			cookies().set("cartId", newCart.id);
+		}
 	}
 
 	const { name, categories, price, images } = product;
@@ -47,12 +62,7 @@ export default async function ProductPage({ params }: { params: { productId: str
 					{categories[0] && <span>{categories[0].name}</span>}
 					<article>{product.description}</article>
 					<form action={addProductToCartAction}>
-						<button
-							type="submit"
-							className="w-full rounded-md border bg-slate-600 px-8 py-3 text-white transition duration-300 ease-in-out hover:bg-slate-800"
-						>
-							Add to cart
-						</button>
+						<AddProductToCartButton />
 					</form>
 				</div>
 			</div>
