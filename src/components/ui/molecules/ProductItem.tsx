@@ -5,7 +5,7 @@ import { type ProductItemFragment } from "@/gql/graphql";
 
 export const ProductItem = ({ product }: { product: ProductItemFragment }) => {
 	return (
-		<li className="w-fit cursor-pointer bg-gray-100">
+		<li>
 			<Link href={`/product/${product.id}`}>
 				{product.images[0] && (
 					<ProductImage src={product.images[0].url} alt={product.images[0].url} />

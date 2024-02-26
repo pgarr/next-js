@@ -16,6 +16,15 @@ const nextConfig = {
 			},
 		];
 	},
+	images: {
+		remotePatterns: [
+			{
+				protocol: "https",
+				hostname: "static-ourstore.hyperfunctor.com",
+				pathname: "/uploads/**",
+			},
+		],
+	},
 };
 
 const withMDX = mdx();
