@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 
 const href = "/cart";
 
-export const CartButton = () => {
+export const CartButton = ({ count }: { count: number }) => {
 	const currentPath = usePathname();
 	const isActive = currentPath === href;
 	return (
@@ -17,7 +17,7 @@ export const CartButton = () => {
 			>
 				Cart
 				<div className="w-4">
-					<span className="ml-2 text-sm font-medium ">1</span>
+					<span className="ml-2 text-sm font-medium ">{count}</span>
 					<span className="sr-only">items in cart, view bag</span>
 				</div>
 			</Link>

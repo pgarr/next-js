@@ -1,12 +1,11 @@
 import { type Metadata } from "next";
 import { notFound } from "next/navigation";
-import { cookies } from "next/headers";
 import { getProduct } from "@/api/products";
 import { ProductImage } from "@/components/ui/atoms/ProductImage";
 import { SuggestedProducts } from "@/components/ui/templates/SuggestedProducts";
 import { Loading } from "@/components/ui/atoms/Loading";
-import { addProductToCart, createCart, getCart } from "@/api/cart";
 import { AddProductToCartButton } from "@/components/ui/atoms/AddProductToCartButton";
+import { addProductToCartAction } from "@/api/actions";
 
 export async function generateMetadata({
 	params,
@@ -33,21 +32,6 @@ export default async function ProductPage({ params }: { params: { productId: str
 		notFound();
 	}
 
-	async function addProductToCartAction() {
-		"use server";
-		if (!product) return;
-		const cartId = cookies().get("cartId")?.value;
-		if (cartId) {
-			const cart = await getCart(cartId);
-			if (cart) {
-				await addProductToCart(cart.id, product.id, quantity);
-			}
-		} else {
-			const newCart = await createCart(product.id, quantity);
-			cookies().set("cartId", newCart.id);
-		}
-	}
-
 	const { name, categories, price, images } = product;
 
 	return (
@@ -61,7 +45,13 @@ export default async function ProductPage({ params }: { params: { productId: str
 					<span className="text-xl font-bold">{price}$</span>
 					{categories[0] && <span>{categories[0].name}</span>}
 					<article>{product.description}</article>
-					<form action={addProductToCartAction}>
+					<form
+						action={async () => {
+							"use server";
+							if (!product) return;
+							await addProductToCartAction(product.id, quantity);
+						}}
+					>
 						<AddProductToCartButton />
 					</form>
 				</div>

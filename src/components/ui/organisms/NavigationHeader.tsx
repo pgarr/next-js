@@ -1,8 +1,10 @@
 import { type Route } from "next";
+import { cookies } from "next/headers";
 import { getCategories } from "@/api/categories";
 import { SearchBar } from "@/components/ui/molecules/SearchBar";
 import { ActiveLink } from "@/components/ui/atoms/ActiveLink";
 import { CartButton } from "@/components/ui/atoms/CartButton";
+import { getCart } from "@/api/cart";
 
 export const NavigationHeader = async () => {
 	const categories = await getCategories();
@@ -14,6 +16,10 @@ export const NavigationHeader = async () => {
 			label: category.name,
 		})),
 	];
+
+	const cartId = cookies().get("cartId")?.value;
+	const cart = cartId ? await getCart(cartId) : null;
+	const count = cart?.items.reduce((acc, item) => acc + item.quantity, 0) || 0;
 
 	return (
 		<header className="sticky top-0 z-20 border-b bg-white bg-opacity-60 backdrop-blur-lg">
@@ -38,7 +44,7 @@ export const NavigationHeader = async () => {
 					</nav>
 					<div className="flex h-full flex-1 items-center px-2 lg:ml-6 lg:h-16 lg:justify-end">
 						<SearchBar />
-						<CartButton />
+						<CartButton count={count} />
 					</div>
 				</div>
 			</div>
