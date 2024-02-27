@@ -19,7 +19,7 @@ export default async function RootLayout({
 		<html lang="en">
 			<body className={inter.className}>
 				<NavigationHeader />
-				{children}
+				<main className="min-h-screen p-24">{children}</main>
 				<NavigationBar
 					links={[{ href: "/static/regulamin" as Route, label: "Regulamin", exact: true }]}
 					navLinkClassName="text-gray-600 hover:text-gray-300 text-xs"

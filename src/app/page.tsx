@@ -10,7 +10,7 @@ export default async function Home() {
 	const products = await getProductsListPaginated(1, 4);
 
 	return (
-		<>
+		<div>
 			<NavigationBar
 				links={collections.map((collection) => ({
 					href: `/collections/${collection.slug}` as Route,
@@ -19,12 +19,10 @@ export default async function Home() {
 				navLinkClassName="text-blue-600 hover:text-blue-300"
 				navLinkActiveClassName="underline"
 			/>
-			<main className="min-h-screen p-24">
-				<h1 className="text-4xl font-bold">HOME</h1>
-				<Loading>
-					<ProductList products={products} />
-				</Loading>
-			</main>
-		</>
+			<h1 className="text-4xl font-bold">HOME</h1>
+			<Loading>
+				<ProductList products={products} />
+			</Loading>
+		</div>
 	);
 }

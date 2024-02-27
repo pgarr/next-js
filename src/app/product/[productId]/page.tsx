@@ -35,7 +35,7 @@ export default async function ProductPage({ params }: { params: { productId: str
 	const { name, categories, price, images } = product;
 
 	return (
-		<main className="min-h-screen p-24">
+		<div>
 			<h1 className="mt-3 text-4xl font-bold">{name}</h1>
 			<div className="mt-10 flex flex-row gap-5">
 				{images[0] && (
@@ -59,6 +59,6 @@ export default async function ProductPage({ params }: { params: { productId: str
 			<Loading>
 				<SuggestedProducts />
 			</Loading>
-		</main>
+		</div>
 	);
 }

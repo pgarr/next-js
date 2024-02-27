@@ -24,7 +24,7 @@ export default async function Products({ params }: { params: { pageNumber: strin
 	);
 
 	return (
-		<main className="min-h-screen p-24">
+		<div>
 			<h1 className="text-4xl font-bold">Products</h1>
 			<PaginationNavigation
 				totalPages={pages}
@@ -32,6 +32,6 @@ export default async function Products({ params }: { params: { pageNumber: strin
 				basePath="/products"
 			/>
 			<ProductList products={products} />
-		</main>
+		</div>
 	);
 }
