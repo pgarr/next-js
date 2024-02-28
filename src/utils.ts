@@ -16,3 +16,7 @@ export const calculateTotal = (cart: CartItemFragment) => {
 		return acc + item.product.price * item.quantity;
 	}, 0);
 };
+
+export const formatRating = (rating: number) => {
+	return rating.toFixed(2);
+};

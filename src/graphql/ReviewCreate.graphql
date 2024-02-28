@@ -1,0 +1,19 @@
+mutation ReviewCreate(
+	$author: String!
+	$description: String!
+	$rating: Int!
+	$title: String!
+	$email: String!
+	$productId: ID!
+) {
+	reviewCreate(
+		author: $author
+		description: $description
+		rating: $rating
+		title: $title
+		email: $email
+		productId: $productId
+	) {
+		id
+	}
+}

@@ -6,6 +6,8 @@ import { SuggestedProducts } from "@/components/ui/templates/SuggestedProducts";
 import { Loading } from "@/components/ui/atoms/Loading";
 import { AddProductToCartButton } from "@/components/ui/atoms/AddProductToCartButton";
 import { addProductToCartAction } from "@/api/actions";
+import { formatMoney, formatRating } from "@/utils";
+import { ReviewsWidget } from "@/components/ui/atoms/ReviewsWidget";
 
 export async function generateMetadata({
 	params,
@@ -32,17 +34,22 @@ export default async function ProductPage({ params }: { params: { productId: str
 		notFound();
 	}
 
-	const { name, categories, price, images } = product;
+	const { name, categories, price, images, rating, reviews } = product;
 
 	return (
 		<div>
 			<h1 className="mt-3 text-4xl font-bold">{name}</h1>
 			<div className="mt-10 flex flex-row gap-5">
-				{images[0] && (
-					<ProductImage src={images[0].url} alt={images[0].alt} width={500} height={500} />
-				)}
-				<div className="flex flex-col gap-4 p-6">
-					<span className="text-xl font-bold">{price}$</span>
+				<div>
+					{images[0] && (
+						<ProductImage src={images[0].url} alt={images[0].alt} width={500} height={500} />
+					)}
+				</div>
+				<div className="flex w-1/2 flex-col gap-4 p-6">
+					<div className="flex flex-row gap-8">
+						<span className="text-xl font-bold">{formatMoney(price)}</span>
+						{rating && <span className="text-xl">{formatRating(rating)}</span>}
+					</div>
 					{categories[0] && <span>{categories[0].name}</span>}
 					<article>{product.description}</article>
 					<form
@@ -56,6 +63,7 @@ export default async function ProductPage({ params }: { params: { productId: str
 					</form>
 				</div>
 			</div>
+			<ReviewsWidget reviews={reviews} productId={product.id} />
 			<Loading>
 				<SuggestedProducts />
 			</Loading>

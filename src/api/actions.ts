@@ -11,6 +11,46 @@ import {
 	getCart,
 	removeProductFromCart,
 } from "@/api/cart";
+import { executeGraphql } from "@/api/executeGraphql";
+import { ProductGetByIdDocument, ReviewCreateDocument } from "@/gql/graphql";
+
+export const createReviewAction = async ({
+	productId,
+	rating,
+	description,
+	email,
+	author,
+	title,
+}: {
+	productId: string;
+	rating: number;
+	description: string;
+	email: string;
+	author: string;
+	title: string;
+}) => {
+	const { product } = await executeGraphql({
+		query: ProductGetByIdDocument,
+		variables: {
+			id: productId,
+		},
+	});
+	if (!product) {
+		throw new Error(`Product with id ${productId} not found`);
+	}
+
+	await executeGraphql({
+		query: ReviewCreateDocument,
+		variables: {
+			productId,
+			rating,
+			description,
+			email,
+			author,
+			title,
+		},
+	});
+};
 
 export const handleStripePaymentAction = async () => {
 	if (!process.env.STRIPE_SECRET_KEY) {
