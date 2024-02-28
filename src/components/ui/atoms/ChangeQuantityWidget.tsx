@@ -30,7 +30,9 @@ export const ChangeQuantityWidget = ({
 			>
 				-
 			</button>
-			<span className="w-8 text-center">{optimisticQuantity}</span>
+			<span className="w-8 text-center" data-testid="quantity">
+				{optimisticQuantity}
+			</span>
 			<button
 				className="h-6 w-6 border"
 				type="submit"

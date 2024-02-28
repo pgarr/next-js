@@ -46,6 +46,12 @@ export const addProductToCart = async (cartId: string, productId: string, quanti
 		throw new Error(`Cart with id ${cartId} not found`);
 	}
 
+	const existingProduct = cart.items.find((item) => item.product.id === productId);
+	if (existingProduct) {
+		await changeQuantity(cartId, productId, existingProduct.quantity + quantity);
+		return cart;
+	}
+
 	const { product } = await executeGraphql({
 		query: ProductGetByIdDocument,
 		variables: {

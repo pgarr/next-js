@@ -21,7 +21,7 @@ export default async function Home() {
 			/>
 			<h1 className="text-4xl font-bold">HOME</h1>
 			<Loading>
-				<ProductList products={products} />
+				<ProductList products={products.data} />
 			</Loading>
 		</div>
 	);

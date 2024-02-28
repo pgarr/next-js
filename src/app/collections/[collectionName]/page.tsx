@@ -22,11 +22,11 @@ export default async function CategoryProducts({ params }: { params: { collectio
 
 	return (
 		collection && (
-			<main className="min-h-screen p-24">
+			<div>
 				<h1 className="text-4xl font-bold">{collection.name}</h1>
 				<article>{collection.description}</article>
 				<ProductList products={collection.products} />
-			</main>
+			</div>
 		)
 	);
 }

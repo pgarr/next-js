@@ -1,4 +1,4 @@
-import { getProductsListCount, getProductsListPaginated } from "@/api/products";
+import { getProductsListPaginated } from "@/api/products";
 import { PaginationNavigation } from "@/components/ui/molecules/PaginationNavigation";
 import { ProductList } from "@/components/ui/organisms/ProductList";
 import { getPageSize } from "@/utils";
@@ -15,13 +15,12 @@ export async function generateStaticParams() {
 
 export default async function Products({ params }: { params: { pageNumber: string } }) {
 	const pageSize = getPageSize();
-	const productsCount = await getProductsListCount();
-	const pages = Math.ceil(productsCount / getPageSize());
 
 	const products = await getProductsListPaginated(
 		params.pageNumber ? parseInt(params.pageNumber) : 1,
 		pageSize,
 	);
+	const pages = Math.ceil(products.meta.total / getPageSize());
 
 	return (
 		<div>
@@ -31,7 +30,7 @@ export default async function Products({ params }: { params: { pageNumber: strin
 				currentPage={Number.parseInt(params.pageNumber)}
 				basePath="/products"
 			/>
-			<ProductList products={products} />
+			<ProductList products={products.data} />
 		</div>
 	);
 }

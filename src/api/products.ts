@@ -1,23 +1,28 @@
 import {
 	ProductGetByIdDocument,
+	type ProductSortBy,
 	ProductsGetListBySearchDocument,
 	ProductsGetListDocument,
+	type SortDirection,
 } from "@/gql/graphql";
 import { executeGraphql } from "@/api/executeGraphql";
 
-export const getProductsListCount = async (): Promise<number> => {
-	return 14;
-};
-
-export const getProductsListPaginated = async (page: number, pageSize: number) => {
+export const getProductsListPaginated = async (
+	page: number,
+	pageSize: number,
+	orderBy?: ProductSortBy,
+	order?: SortDirection,
+) => {
 	const graphqlResponse = await executeGraphql({
 		query: ProductsGetListDocument,
 		variables: {
 			take: pageSize,
 			skip: pageSize * (page - 1),
+			orderBy,
+			order,
 		},
 	});
-	return graphqlResponse.products.data || [];
+	return graphqlResponse.products || { data: [], meta: { total: 0 } };
 };
 
 export const getProduct = async (id: string) => {

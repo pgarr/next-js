@@ -1,13 +1,15 @@
-import { formatMoney } from "@/utils";
+import { formatMoney, formatRating } from "@/utils";
 
 export const ProductDescription = ({
 	name,
 	price,
 	category,
+	rating,
 }: {
 	name: string;
 	price: number;
 	category: string;
+	rating: number;
 }) => {
 	return (
 		<div className="mt-2">
@@ -19,6 +21,7 @@ export const ProductDescription = ({
 			</div>
 			<div className="mt-1 flex flex-row justify-between">
 				<p className="text-sm text-slate-500">{category}</p>
+				<p className="text-sm text-slate-500">{formatRating(rating)}</p>
 			</div>
 		</div>
 	);

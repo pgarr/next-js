@@ -14,6 +14,7 @@ export const ProductItem = ({ product }: { product: ProductItemFragment }) => {
 					name={product.name}
 					category={product.categories[0]?.name || ""}
 					price={product.price}
+					rating={product.rating || 0}
 				/>
 			</Link>
 		</li>

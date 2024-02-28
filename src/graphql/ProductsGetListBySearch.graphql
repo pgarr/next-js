@@ -3,5 +3,8 @@ query ProductsGetListBySearch($search: String!) {
 		data {
 			...ProductItem
 		}
+		meta {
+			total
+		}
 	}
 }
