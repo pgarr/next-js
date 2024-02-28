@@ -22,6 +22,7 @@ export const ReviewsWidget = ({
 			<div className="flex-1">
 				<h2 className="mt-3 text-2xl font-bold">Add review</h2>
 				<form
+					data-testid="add-review-form"
 					className="flex flex-col gap-2"
 					action={async (formData: FormData) => {
 						const rating = Number(formData.get("rating") as unknown as string);
