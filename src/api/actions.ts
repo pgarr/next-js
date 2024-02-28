@@ -41,7 +41,7 @@ export const handleStripePaymentAction = async () => {
 					description: item.product.description,
 					images: item.product.images.map((image) => image.url),
 				},
-				unit_amount: item.product.price * 100,
+				unit_amount: item.product.price,
 			},
 			quantity: item.quantity,
 		};

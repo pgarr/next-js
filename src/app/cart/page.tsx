@@ -2,11 +2,12 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import NextImage from "next/image";
 import Link from "next/link";
-import { formatMoney } from "@/utils";
+import { calculateTotal, formatMoney } from "@/utils";
 import { getCart } from "@/api/cart";
 import { ChangeQuantityWidget } from "@/components/ui/atoms/ChangeQuantityWidget";
 import { RemoveProductFromCartButton } from "@/components/ui/atoms/RemoveProductFromCartButton";
 import { handleStripePaymentAction } from "@/api/actions";
+import { CheckoutButton } from "@/components/ui/atoms/CheckoutButton";
 
 export default async function CartPage() {
 	const cartId = cookies().get("cartId")?.value;
@@ -19,12 +20,7 @@ export default async function CartPage() {
 		redirect("/");
 	}
 
-	const total = cart.items.reduce((acc, item) => {
-		if (!item.product) {
-			return acc;
-		}
-		return acc + item.product.price * item.quantity;
-	}, 0);
+	const total = calculateTotal(cart);
 
 	return (
 		<div>
@@ -54,7 +50,7 @@ export default async function CartPage() {
 													{item.product.categories[0].name}
 												</p>
 											</div>
-											<p className="small-caps p-4  text-right font-semibold text-slate-900">
+											<p className="small-caps p-4 text-right font-semibold text-slate-900">
 												{formatMoney(item.product.price)}
 											</p>
 										</div>
@@ -90,12 +86,7 @@ export default async function CartPage() {
 				</div>
 				<form action={handleStripePaymentAction} className="mt-10 grid grid-cols-2">
 					<div></div>
-					<button
-						type="submit"
-						className="w-full rounded border border-transparent bg-blue-500 px-6 py-3 font-medium text-slate-50 hover:bg-blue-600 disabled:bg-gray-300"
-					>
-						Checkout
-					</button>
+					<CheckoutButton />
 				</form>
 				<div className="mt-4 text-center ">
 					<Link className="text-sm font-medium text-blue-600 hover:text-blue-500" href="/products">

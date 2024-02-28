@@ -12,8 +12,10 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({
 	children,
+	modal,
 }: Readonly<{
 	children: React.ReactNode;
+	modal: React.ReactNode;
 }>) {
 	return (
 		<html lang="en">
@@ -25,6 +27,7 @@ export default async function RootLayout({
 					navLinkClassName="text-gray-600 hover:text-gray-300 text-xs"
 					navLinkActiveClassName="underline"
 				/>
+				{modal}
 			</body>
 		</html>
 	);
