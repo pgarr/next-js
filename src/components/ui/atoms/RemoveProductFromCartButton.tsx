@@ -1,7 +1,7 @@
 "use client";
 
 import { useTransition } from "react";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import { removeProductFromCartAction } from "@/api/actions";
 
 export const RemoveProductFromCartButton = ({
@@ -11,7 +11,7 @@ export const RemoveProductFromCartButton = ({
 	cartId: string;
 	productId: string;
 }) => {
-	const router = useRouter();
+	// const router = useRouter();
 	const [isPending, startTransition] = useTransition();
 
 	return (
@@ -21,7 +21,7 @@ export const RemoveProductFromCartButton = ({
 			onClick={() => {
 				startTransition(async () => {
 					await removeProductFromCartAction(cartId, productId);
-					router.refresh();
+					// router.refresh();
 				});
 			}}
 			className="ml-4 text-sm font-medium text-indigo-600 hover:text-indigo-500 sm:ml-0 sm:mt-3"

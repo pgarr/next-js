@@ -1,5 +1,4 @@
 import { cookies } from "next/headers";
-import Link from "next/link";
 import NextImage from "next/image";
 import { getCart } from "@/api/cart";
 import { Overlay } from "@/components/ui/atoms/Overlay";
@@ -26,9 +25,9 @@ export default async function ModalCart() {
 					<div className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
 						<div className="flex items-center justify-between">
 							<h3 className="text-lg font-medium text-slate-900">Shopping cart</h3>
-							<Link href="/cart" className="text-sm text-blue-500">
+							<a href="/cart" className="text-sm text-blue-500">
 								(open full view)
-							</Link>
+							</a>
 						</div>
 						<div className="mt-8">
 							<ul className="-my-6 divide-y divide-gray-200">
