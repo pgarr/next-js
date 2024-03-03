@@ -63,10 +63,10 @@ export default async function ProductPage({ params }: { params: { productId: str
 					</form>
 				</div>
 			</div>
-			<ReviewsWidget reviews={reviews} productId={product.id} />
 			<Loading>
 				<SuggestedProducts />
 			</Loading>
+			<ReviewsWidget reviews={reviews} productId={product.id} />
 		</div>
 	);
 }
