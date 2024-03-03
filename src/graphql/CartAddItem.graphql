@@ -1,0 +1,5 @@
+mutation CartAddItem($cartId: ID!, $productId: String!, $quantity: Int!) {
+	cartFindOrCreate(id: $cartId, input: { items: { productId: $productId, quantity: $quantity } }) {
+		...CartItem
+	}
+}

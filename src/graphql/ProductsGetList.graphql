@@ -1,7 +1,10 @@
-query ProductsGetList($take: Int!, $skip: Int!) {
-	products(take: $take, skip: $skip) {
+query ProductsGetList($take: Int!, $skip: Int!, $order: SortDirection, $orderBy: ProductSortBy) {
+	products(take: $take, skip: $skip, order: $order, orderBy: $orderBy) {
 		data {
 			...ProductItem
+		}
+		meta {
+			total
 		}
 	}
 }

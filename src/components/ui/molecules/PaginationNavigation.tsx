@@ -5,11 +5,14 @@ export const PaginationNavigation = ({
 	currentPage,
 	totalPages,
 	basePath,
+	searchParams,
 }: {
 	currentPage: number;
 	totalPages: number;
 	basePath: Route;
+	searchParams?: Record<string, string>;
 }) => {
+	const queryString = new URLSearchParams(searchParams).toString();
 	const links = new Set([1, currentPage - 1, currentPage, currentPage + 1, totalPages]);
 
 	return (
@@ -23,8 +26,7 @@ export const PaginationNavigation = ({
 						<li key={page}>
 							<ActiveLink
 								exact
-								// @ts-expect-error href is a Route
-								href={`${basePath}/${page.toString()}`}
+								href={`${basePath}/${page.toString()}?${queryString}` as Route}
 								activeClassName="underline"
 								className="text-blue-600 hover:text-blue-300"
 								aria-label={`Goto Page ${page}`}
