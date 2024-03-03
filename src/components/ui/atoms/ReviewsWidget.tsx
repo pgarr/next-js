@@ -18,7 +18,7 @@ export const ReviewsWidget = ({
 	);
 
 	return (
-		<div className="flex flex-row gap-8">
+		<div className="mt-24 flex flex-row gap-8">
 			<div className="flex-1">
 				<h2 className="mt-3 text-2xl font-bold">Add review</h2>
 				<form

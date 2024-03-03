@@ -21,7 +21,9 @@ export const ProductDescription = ({
 			</div>
 			<div className="mt-1 flex flex-row justify-between">
 				<p className="text-sm text-slate-500">{category}</p>
-				<p className="text-sm text-slate-500">{formatRating(rating)}</p>
+				<p className="text-sm text-slate-500" data-testid="product-rating">
+					{formatRating(rating)}
+				</p>
 			</div>
 		</div>
 	);
