@@ -1,27 +1,5 @@
-# mutation CartChangeItemQuantity($cartId: ID!, $productId: ID!, $quantity: Int!) {
-# 	cartChangeItemQuantity(id: $cartId, productId: $productId, quantity: $quantity) {
-# 		...CartItem
-# 	}
-# }
-
 mutation CartChangeItemQuantity($cartId: ID!, $productId: ID!, $quantity: Int!) {
 	cartChangeItemQuantity(id: $cartId, productId: $productId, quantity: $quantity) {
-		id
-		items {
-			quantity
-			product {
-				id
-				name
-				price
-				description
-				images {
-					url
-					alt
-				}
-				categories {
-					name
-				}
-			}
-		}
+		...CartItem
 	}
 }

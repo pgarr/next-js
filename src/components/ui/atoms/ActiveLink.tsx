@@ -21,7 +21,10 @@ export const ActiveLink = ({
 	exact?: boolean;
 }) => {
 	const currentPath = usePathname();
-	const isActive = exact ? currentPath === href : currentPath.startsWith(href);
+	const hrefWithoutQuery = href.split("?")[0];
+	const isActive = exact
+		? currentPath === hrefWithoutQuery
+		: currentPath.startsWith(hrefWithoutQuery);
 
 	return (
 		<Link
